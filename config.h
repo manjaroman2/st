@@ -8,8 +8,10 @@
 static char *font =
     "LXGW WenKai Mono TC:pixelsize=23:antialias=true:autohint=true";
 static char *font2[] = {
+    "FantasqueSansM Nerd Font Mono:pixelsize=26:antialias=true",
     "DejaVu Sans Mono:pixelsize=23:antialias=true",
-    "FantasqueSansM Nerd Font Mono:pixelsize=26:antialias=true"};
+    "Adwaita Mono:pixelsize=23:antialias=true",
+};
 static int borderpx = 2;
 
 /*
