@@ -35,6 +35,7 @@
 #define ESC_ARG_SIZ   16
 #define STR_BUF_SIZ   ESC_BUF_SIZ
 #define STR_ARG_SIZ   ESC_ARG_SIZ
+#define HISTSIZE      2000
 
 /* macros */
 #define IS_SET(flag)		((term.mode & (flag)) != 0)
@@ -1090,14 +1091,14 @@ tswapscreen(void)
 void
 kscrollup(const Arg *a)
 {
-	int n = a->i;
+	float n = a->f;
 
 	if (IS_SET(MODE_ALTSCREEN))
 		return;
 
-	if (n < 0) n = (-n) * term.row;
+	if (n < 0) n = MAX((-n) * term.row, 1);
 	if (n > TSCREEN.size - term.row - TSCREEN.off) n = TSCREEN.size - term.row - TSCREEN.off;
-	while (!TLINE(-n)) --n;
+	while (!TLINE((int)-n)) --n;
 	TSCREEN.off += n;
 	selscroll(0, n);
 	tfulldirt();
@@ -1107,12 +1108,12 @@ void
 kscrolldown(const Arg *a)
 {
 
-	int n = a->i;
+	float n = a->f;
 
 	if (IS_SET(MODE_ALTSCREEN))
 		return;
 
-	if (n < 0) n = (-n) * term.row;
+	if (n < 0) n = MAX((-n) * term.row, 1);
 	if (n > TSCREEN.off) n = TSCREEN.off;
 	TSCREEN.off -= n;
 	selscroll(0, -n);
